@@ -1,0 +1,114 @@
+-- Use the created database
+USE cairo_craving;
+
+-- Users Table (without category and image_url)
+CREATE TABLE IF NOT EXISTS users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,  -- Password field for users
+    phone VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    wallet_balance DECIMAL(10, 2) DEFAULT 0.00
+);
+
+-- Products Table
+CREATE TABLE IF NOT EXISTS products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    stock_quantity INT NOT NULL,
+    category VARCHAR(100),  -- Added category to classify products
+    image_url VARCHAR(255)  -- Added image URL for the product's image
+);
+
+-- Payments Table (with credit card information)
+CREATE TABLE IF NOT EXISTS payments (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    payment_method ENUM('credit_card', 'paypal', 'wallet') NOT NULL,
+    payment_status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    amount DECIMAL(10, 2) NOT NULL,
+    credit_card_number VARCHAR(16),  -- Credit card number (should be encrypted in production)
+    credit_card_expiry VARCHAR(5),  -- Credit card expiry date (MM/YY format)
+    credit_card_cvc VARCHAR(3),  -- Credit card CVC (CVV)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- Addresses Table
+CREATE TABLE IF NOT EXISTS addresses (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    address_line1 VARCHAR(255) NOT NULL,
+    address_line2 VARCHAR(255),
+    city VARCHAR(100) NOT NULL,
+    state VARCHAR(100),
+    zip_code VARCHAR(20) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- Staff Table (with email and password added)
+CREATE TABLE IF NOT EXISTS staff (
+    staff_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,  -- Email field for staff
+    password VARCHAR(255) NOT NULL,  -- Password field for staff
+    role ENUM('customer_support', 'admin') NOT NULL,
+    phone VARCHAR(20),
+    hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('active', 'inactive') DEFAULT 'active'
+);
+
+-- Delivery Staff Table (with email and password added)
+CREATE TABLE IF NOT EXISTS delivery_staff (
+    delivery_staff_id INT AUTO_INCREMENT PRIMARY KEY,
+    staff_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,  -- Name of the delivery staff member
+    email VARCHAR(100) NOT NULL,  -- Email address of the delivery staff member
+    password VARCHAR(255) NOT NULL,  -- Password for the delivery staff member
+    phone VARCHAR(20) NOT NULL,  -- Phone number of the delivery staff member
+    vehicle_type VARCHAR(50),  -- Type of vehicle (e.g., bike, car)
+    status ENUM('active', 'inactive') DEFAULT 'active',  -- Delivery staff status
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+);
+
+-- Orders Table (ensure the parent tables exist first)
+CREATE TABLE IF NOT EXISTS orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    payment_id INT NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status ENUM('pending', 'completed', 'canceled', 'failed') DEFAULT 'pending',
+    address_id INT NOT NULL,
+    staff_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (payment_id) REFERENCES payments(payment_id),
+    FOREIGN KEY (address_id) REFERENCES addresses(address_id),
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+);
+
+-- Order Items Table (with items_extras)
+CREATE TABLE IF NOT EXISTS order_items (
+    order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    item_price DECIMAL(10, 2) NOT NULL,
+    items_extras TEXT,  -- Extras or special instructions for the item
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Delivery Table
+CREATE TABLE IF NOT EXISTS delivery (
+    delivery_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    delivery_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    delivery_status ENUM('pending', 'in_progress', 'completed', 'failed') DEFAULT 'pending',
+    remaining_amount DECIMAL(10, 2) DEFAULT 0.00,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);

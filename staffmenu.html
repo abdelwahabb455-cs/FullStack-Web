@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="staffmenu.css" type="text/css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>Cairo Craving - Staff Dashboard</h1>
+        <div class="logout">
+            <a href="loginstaff.html">Logout</a>
+        </div>
+    </header>
+    <main class="dashboard">
+        <section class="profile">
+            <h2>Welcome, [Staff Name]</h2>
+            <p><strong>Email:</strong> [Staff Email]</p>
+            <p><strong>Role:</strong> [Staff Role]</p>
+        </section>
+
+        <section class="actions">
+            <h2>Actions</h2>
+            <ul>
+                <li><a href="addproduct.php">Add Product</a></li>
+                <li><a href="updateproduct.php">Update Product</a></li>
+                <li><a href="delete.php">Delete Product</a></li>
+            </ul>
+        </section>
+
+        <section class="orders">
+            <h2>Recent Orders</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows -->
+                    <tr>
+                        <td>123</td>
+                        <td>John Doe</td>
+                        <td>$45.50</td>
+                        <td>Pending</td>
+                        <td><a href="update-order-status.php?order_id=123">Update</a></td>
+                    </tr>
+                    <tr>
+                        <td>124</td>
+                        <td>Jane Smith</td>
+                        <td>$30.00</td>
+                        <td>Completed</td>
+                        <td><a href="update-order-status.php?order_id=124">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

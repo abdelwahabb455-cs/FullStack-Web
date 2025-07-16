@@ -1,0 +1,135 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff5f5;
+    color: #333333;
+    display: flex;
+    flex-direction: row; /* Changed to row for side-by-side layout */
+}
+
+.navbar {
+    width: 200px; /* Fixed width for the navbar */
+    background-color: #cc0000;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar h1 {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.logout a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 12px;
+    background-color: #990000;
+    border-radius: 4px;
+}
+
+.logout a:hover {
+    background-color: #660000;
+}
+
+.container {
+    flex: 1; /* Allow the content area to take up the remaining space */
+    padding: 20px;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: flex-start; /* Left align the content */
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    color: #cc0000;
+}
+
+.sidebar a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.sidebar a:hover {
+    color: #cc0000;
+}
+
+.modify-products {
+    width: 600px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.modify-products form {
+    margin-top: 20px;
+}
+
+.modify-products label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modify-products input[type="text"],
+.modify-products input[type="number"],
+.modify-products input[type="file"],
+.modify-products textarea,
+.modify-products select {
+    width: 90%;
+    padding: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.modify-products button {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modify-products button:hover {
+    background-color: #990000;
+}
+
+.modify-products table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+
+.modify-products table th,
+.modify-products table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.modify-products table th {
+    background-color: #f4f4f4;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Dashboard</title>
+    <link rel="stylesheet" href="delivery.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Delivery Staff Dashboard</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                include("config.php");
+
+                $sql = "SELECT o.order_id, u.name AS customer_name, a.city, a.street, a.building, a.floor, a.apartment, u.phone, o.total_amount, o.status, o.address_id
+                        FROM orders3 o
+                        JOIN users u ON o.user_id = u.user_id
+                        JOIN addresses a ON o.address_id = a.address_id";
+
+                $result = mysqli_query($con, $sql);
+
+                while ($row = mysqli_fetch_assoc($result)) { ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($row['order_id']); ?></td>
+                    <td><?php echo htmlspecialchars($row['customer_name']); ?></td>
+                    <td><?php echo htmlspecialchars($row['city'] . ', ' . $row['street'] . ', ' . $row['building'] . ', ' . $row['floor'] . ', ' . $row['apartment']); ?></td>
+                    <td><?php echo htmlspecialchars($row['phone']); ?></td>
+                    <td><?php echo htmlspecialchars($row['total_amount']); ?></td>
+                    <td><?php echo htmlspecialchars($row['status']); ?></td>
+                    <td>
+                        <form action="delivery.php" method="post" style="display: inline-block;">
+                            <input type="hidden" name="order_id" value="<?php echo $row['order_id']; ?>">
+                            <button type="submit" name="status" value="completed" class="action-button">Mark as Delivered</button>
+                        </form>
+                        <form action="delivery.php" method="post" style="display: inline-block;">
+                            <input type="hidden" name="order_id" value="<?php echo $row['order_id']; ?>">
+                            <button type="submit" name="status" value="canceled" class="action-button">Cancel</button>
+                        </form>
+                        <form action="delivery.php" method="post" style="display: inline-block;">
+                            <input type="hidden" name="order_id" value="<?php echo $row['order_id']; ?>">
+                            <button type="submit" name="status" value="failed" class="action-button">Mark as Failed</button>
+                        </form>
+                        <form action="delivery.php" method="post" style="display: inline-block;">
+                            <input type="hidden" name="order_id" value="<?php echo $row['order_id']; ?>">
+                            <button type="submit" name="status" value="pending" class="action-button">Pending</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

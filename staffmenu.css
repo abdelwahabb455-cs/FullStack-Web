@@ -1,0 +1,133 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff5f5; /* Light pink background */
+    color: #333333; /* Dark gray text color */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #cc0000; /* Bright red background */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.navbar .logout a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #cc0000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar .logout a:hover {
+    background-color: #990000; /* Darker red on hover */
+}
+
+/* Dashboard Layout */
+.dashboard {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Section */
+.profile {
+    margin-bottom: 20px;
+}
+
+.profile h2 {
+    margin-top: 0;
+    color: #cc0000; /* Bright red */
+}
+
+/* Actions Section */
+.actions h2 {
+    color: #cc0000;
+}
+
+.actions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.actions ul li {
+    margin: 10px 0;
+}
+
+.actions ul li a {
+    color: #cc0000;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.actions ul li a:hover {
+    color: #990000; /* Darker red on hover */
+}
+
+/* Orders Section */
+.orders h2 {
+    color: #cc0000;
+    margin-top: 0;
+}
+
+.orders table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.orders table thead {
+    background-color: #cc0000; /* Bright red header */
+    color: white;
+}
+
+.orders table th,
+.orders table td {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 10px;
+    text-align: left;
+}
+
+.orders table tbody tr:nth-child(even) {
+    background-color: #fffafa; /* Light pink */
+}
+
+.orders table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.orders table td a {
+    color: #cc0000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.orders table td a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50; /* Dark gray */
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
